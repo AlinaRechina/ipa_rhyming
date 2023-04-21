@@ -34,6 +34,20 @@ def liquids(given):
     return given
 
 
+def yi(chanks):
+    #читает ый
+    res = ''
+    for i in range(len(chanks)):
+        if chanks[i] == 'ы':
+            if chanks[i-1] == '/':
+                res += 'ɰi'
+            else:
+                res += 'i'
+        else:
+            res+= chanks[i]   
+    return res
+
+
 def aspiration(given):
     # ассимиляция по аспирации
     to_fix_k = ['k-h', 'k͈-h', 'kʰ-h', 'h-k', 'h-k͈', 'h-kʰ']

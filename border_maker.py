@@ -43,7 +43,6 @@ class BorderMaker():
                'Hashtag', 'ScreenName', 'Email', 'URL')
 
         for entity in twit_morph:
-            print(entity)
             if entity[1] in lil_morphs:
                 if entity[0] == '의':
                     good_text = good_text.strip(" /-#") + '-ɛ#'  # генитив

@@ -1,0 +1,3 @@
+include ipa_rhyming/static/*
+include ipa_rhyming/ipapy/data/*
+recursive-exclude ipa_rhyming/ipapy/tests *

@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: ipa_rhyming
+Version: 1.0.11
+Author-email: neminova2.0@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3

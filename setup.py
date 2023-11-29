@@ -11,5 +11,6 @@ setuptools.setup(name='ipa_rhyming',
                      'Topic :: Scientific/Engineering'
                  ],
                  python_requires='>=3',
-                 author_email='neminova2.0@gmail.com'
+                 author_email='shambratona@gmail.com',
+                 url="https://github.com/AlinaRechina/rhyme_analysis"
                  )

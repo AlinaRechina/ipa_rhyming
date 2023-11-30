@@ -14,7 +14,7 @@ import ipa_rhyming
 rhyme = ipa_rhyming.Rhymer('ko', 'en')
 print(rhyme.get_rhyme_type('mʌtc͈iŋkjʌlmɐlʲetɐkʰʲe', 'haɪweɪhaɪweɪ'))
 
->>> exact_perfect rhyme
+>>> {'rhyme_type': 'exact_perfect rhyme', 'sylls': ('kʰʲe', 'weɪ'), 'vowels': ('e', 'eɪ')}
 ```
 ## Explanation of output (types of rhymes)
 The part before "_" determines the type of rhyme depending on vowels in last syllables.

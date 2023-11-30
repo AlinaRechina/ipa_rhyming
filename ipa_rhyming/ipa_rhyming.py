@@ -10,11 +10,11 @@ class Rhymer:
     def __init__(self, lang1, lang2):
         self.difs = ['eɪ', 'oʊ', 'aɪɚ', 'aɪ', 'uə', 'ɔɪ']
         self.dict_pos = {'front': 1, 'near-front': 0.5,
-                     'central': 0,
-                     'near-back': -0.5,'back': -1}
+                         'central': 0,
+                         'near-back': -0.5, 'back': -1}
         self.dict_raise = {'open': 1, 'near-open': 0.75, 'open-mid': 0.5,
-                     'mid': 0,
-                     'close-mid': -0.5, 'near-close': -0.75,'close': -1}
+                           'mid': 0,
+                           'close-mid': -0.5, 'near-close': -0.75, 'close': -1}
 
         self.path_to_module = os.path.dirname(__file__)
         self.pairs_path = os.path.join(self.path_to_module, "static", f"{lang1}_{lang2}.json")
@@ -44,7 +44,6 @@ class Rhymer:
                 ending.insert(0, i)
             elif i.name.split()[-1] == 'vowel':
                 ending.insert(0, i)
-                # counter += 1
             elif i.name.split()[-1] == 'consonant':
                 ending.insert(0, i)
                 if len(ending.vowels) >= 1:
@@ -64,15 +63,14 @@ class Rhymer:
         """
 
         for dif in self.difs:
-            # print(dif)
             if dif in str(syllable):
                 syllable1 = str(syllable).split(dif)
-                return syllable1
+                return syllable1, dif
 
             else:
                 vowel = syllable.vowels[0]
                 syllable2 = str(syllable).split(str(vowel))
-        return syllable2
+        return syllable2, str(vowel)
 
     @staticmethod
     def a_or_f(split1, split2):
@@ -114,13 +112,13 @@ class Rhymer:
             if v1.descriptors[-1] == v2.descriptors[-1]:
                 diff_on_pos = abs(self.dict_pos[v1.descriptors[2]] - self.dict_pos[v2.descriptors[2]])
                 diff_on_raise = abs(self.dict_raise[v1.descriptors[1]] - self.dict_raise[v2.descriptors[1]])
-                if math.sqrt(diff_on_pos**2 + diff_on_raise**2) < 1.5:
+                if math.sqrt(diff_on_pos ** 2 + diff_on_raise ** 2) < 1.5:
                     return 'close to_'
                 else:
                     return 'need to clarify_'
             else:
                 return 'different roundness_'
-    
+
     def on_vowels(self, syll1, syll2):
         """
         Check type of rhyme based on a vowel in the last syllable.
@@ -147,7 +145,7 @@ class Rhymer:
             else:
                 return 'not a rhyme_'
 
-    def get_rhyme_type(self, string1, string2):
+    def get_rhyme_type(self, string1, string2, return_syllables=True, return_vowels=True):
         """
         Determines rhyme type depending on last consonant(s) and combines with verdict on vowels.
 
@@ -162,8 +160,8 @@ class Rhymer:
 
         self.syll1 = self.get_last_syll(string1)
         self.syll2 = self.get_last_syll(string2)
-        split_syll1 = self.split_on_vowel(self.syll1)
-        split_syll2 = self.split_on_vowel(self.syll2)
+        split_syll1, vowel1 = self.split_on_vowel(self.syll1)
+        split_syll2, vowel2 = self.split_on_vowel(self.syll2)
 
         if split_syll1[-1] == split_syll2[-1]:
             rhyme_type = 'perfect rhyme'
@@ -173,10 +171,13 @@ class Rhymer:
                 rhyme_type = 'additive/subtractive rhyme'
             else:
                 rhyme_type = self.a_or_f(split_syll1[-1], split_syll2[-1])
-        # return rhyme_type
 
         vowel_similarity = self.on_vowels(self.syll1, self.syll2)
-        return vowel_similarity + rhyme_type
 
-# print(os.path.dirname(__file__))
-# print(os.path.join(os.path.dirname(__file__), "static", "ko_en.json"))
+        return_value = {'rhyme_type': vowel_similarity + rhyme_type}
+        if return_syllables:
+            return_value['sylls'] = (str(self.syll1), str(self.syll2))
+        if return_vowels:
+            return_value['vowels'] = (vowel1, vowel2)
+
+        return return_value

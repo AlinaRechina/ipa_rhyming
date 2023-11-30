@@ -44,6 +44,7 @@ class Rhymer:
                 ending.insert(0, i)
             elif i.name.split()[-1] == 'vowel':
                 ending.insert(0, i)
+                # counter += 1
             elif i.name.split()[-1] == 'consonant':
                 ending.insert(0, i)
                 if len(ending.vowels) >= 1:
@@ -63,14 +64,15 @@ class Rhymer:
         """
 
         for dif in self.difs:
+            # print(dif)
             if dif in str(syllable):
                 syllable1 = str(syllable).split(dif)
-                return syllable1, dif
+                return syllable1
 
             else:
                 vowel = syllable.vowels[0]
                 syllable2 = str(syllable).split(str(vowel))
-        return syllable2, str(vowel)
+        return syllable2
 
     @staticmethod
     def a_or_f(split1, split2):
@@ -145,7 +147,7 @@ class Rhymer:
             else:
                 return 'not a rhyme_'
 
-    def get_rhyme_type(self, string1, string2, return_syllables=True, return_vowels=True):
+    def get_rhyme_type(self, string1, string2):
         """
         Determines rhyme type depending on last consonant(s) and combines with verdict on vowels.
 
@@ -160,8 +162,8 @@ class Rhymer:
 
         self.syll1 = self.get_last_syll(string1)
         self.syll2 = self.get_last_syll(string2)
-        split_syll1, vowel1 = self.split_on_vowel(self.syll1)
-        split_syll2, vowel2 = self.split_on_vowel(self.syll2)
+        split_syll1 = self.split_on_vowel(self.syll1)
+        split_syll2 = self.split_on_vowel(self.syll2)
 
         if split_syll1[-1] == split_syll2[-1]:
             rhyme_type = 'perfect rhyme'
@@ -171,13 +173,10 @@ class Rhymer:
                 rhyme_type = 'additive/subtractive rhyme'
             else:
                 rhyme_type = self.a_or_f(split_syll1[-1], split_syll2[-1])
+        # return rhyme_type
 
         vowel_similarity = self.on_vowels(self.syll1, self.syll2)
+        return vowel_similarity + rhyme_type
 
-        return_value = {'rhyme_type': vowel_similarity + rhyme_type}
-        if return_syllables:
-            return_value['sylls'] = (str(self.syll1), str(self.syll2))
-        if return_vowels:
-            return_value['vowels'] = (vowel1, vowel2)
-
-        return return_value
+# print(os.path.dirname(__file__))
+# print(os.path.join(os.path.dirname(__file__), "static", "ko_en.json"))

@@ -11,3 +11,6 @@ print(rhyme.get_rhyme_type('mʌtc͈iŋkjʌlmɐlʲetɐkʰʲe', 'haɪweɪhaɪweɪ'
 
 >>> exact_perfect rhyme
 ```
+
+**Breaking down the output:**
+we split it on

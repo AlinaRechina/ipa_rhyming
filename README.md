@@ -2,7 +2,8 @@
 
 ## Table of contents
 1. [How to use ipa_rhyming](#how-to-use-ipak_rhyming)
-2. [Explanation of output (types of rhymes)](#korean-ipa-automatic-transcription)
+2. [Explanation of output (types of rhymes)](#explanation-of-output-types-of-rhymes)
+3. [Authors](#authors)
 
 ## How to use ipa_rhyming
 ```python

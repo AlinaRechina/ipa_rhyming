@@ -10,11 +10,11 @@ class Rhymer:
     def __init__(self, lang1, lang2):
         self.difs = ['eɪ', 'oʊ', 'aɪɚ', 'aɪ', 'uə', 'ɔɪ']
         self.dict_pos = {'front': 1, 'near-front': 0.5,
-                     'central': 0,
-                     'near-back': -0.5,'back': -1}
+                         'central': 0,
+                         'near-back': -0.5, 'back': -1}
         self.dict_raise = {'open': 1, 'near-open': 0.75, 'open-mid': 0.5,
-                     'mid': 0,
-                     'close-mid': -0.5, 'near-close': -0.75,'close': -1}
+                           'mid': 0,
+                           'close-mid': -0.5, 'near-close': -0.75, 'close': -1}
 
         self.path_to_module = os.path.dirname(__file__)
         self.pairs_path = os.path.join(self.path_to_module, "static", f"{lang1}_{lang2}.json")
@@ -112,13 +112,13 @@ class Rhymer:
             if v1.descriptors[-1] == v2.descriptors[-1]:
                 diff_on_pos = abs(self.dict_pos[v1.descriptors[2]] - self.dict_pos[v2.descriptors[2]])
                 diff_on_raise = abs(self.dict_raise[v1.descriptors[1]] - self.dict_raise[v2.descriptors[1]])
-                if math.sqrt(diff_on_pos**2 + diff_on_raise**2) < 1.5:
+                if math.sqrt(diff_on_pos ** 2 + diff_on_raise ** 2) < 1.5:
                     return 'close to_'
                 else:
                     return 'need to clarify_'
             else:
                 return 'different roundness_'
-    
+
     def on_vowels(self, syll1, syll2):
         """
         Check type of rhyme based on a vowel in the last syllable.
